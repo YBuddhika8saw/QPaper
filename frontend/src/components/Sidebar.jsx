@@ -23,25 +23,25 @@ export default function Sidebar() {
               <span className="iconSize">
                 <HiOutlineUsers size={25} />
               </span>
-              Users
+              #
             </Link>
             <Link to="/TicketSupports">
               <span className="iconSize">
                 <GoStack size={25} />
               </span>
-              Complains & Supports
+              #
             </Link>
             <Link to="/Revenue">
               <span className="iconSize">
                 <BiDollar size={25} />
               </span>
-              Revenue
+              #
             </Link>
             <Link to="/AdminEvents">
               <span className="iconSize">
                 <BiHomeAlt2 size={25} />
               </span>
-              Events
+              #
             </Link>          
             </div>
         </div>
