@@ -1,0 +1,22 @@
+.main {
+    margin-left: 15%;
+    padding: 0px 10px;
+    background-color: #ffffff;
+    height: 100%;
+    overflow: auto;
+    font-size: medium;
+  }
+
+/* add questions form css  */
+/* Path: frontend/src/pages/AddQuestions.jsx */
+.formContainer {
+    width: 75%;
+    height: 90%;
+    background-color: #ffffff;
+    box-sizing: border-box; 
+  }
+  
+  .formContainer button {
+    width: 15%; 
+    margin-left: 85%;   
+  }

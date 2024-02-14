@@ -6,8 +6,9 @@ export default function Dashboard() {
     <div>
       {/* import sidebar from '../components/Sidebar' */}
       <Sidebar />
+      <div className='main'>
       <h1> This is Dashboard </h1>
-
+      </div>
     </div>
   )
 }
