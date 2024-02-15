@@ -13,7 +13,7 @@ export default function Sidebar() {
   return (
     <div>
           <div class="sidebar">
-            <Link to="#">
+            <Link to="/">
               <span className="iconSize">
                 <BsFillGridFill size={25} />
               </span>
@@ -25,7 +25,7 @@ export default function Sidebar() {
               </span>
               Create a Paper
             </Link>  
-            <Link to="#">
+            <Link to="/AddQuestions">
               <span className="iconSize">
                 <HiOutlineUsers size={25} />
               </span>

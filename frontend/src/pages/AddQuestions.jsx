@@ -42,7 +42,7 @@ export default function AddQuestions() {
             <MDBInput wrapperClass="mb-4" id="qSubjectArea" label="Subject Area" />
 
             <MDBBtn type="submit" block>
-              Add to Pool
+              Add to Bank
             </MDBBtn>
           </form>
         </div>
