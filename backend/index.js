@@ -5,8 +5,13 @@ import questionRoutes from './routes/questionRoutes.js';
 const port = 5000
 
 
+// Create Express app
+const app = express()
 
-const app = express();
+// Parse JSON bodies
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 
 app.use('/api/question', questionRoutes);
 
