@@ -13,36 +13,42 @@ export default function Sidebar() {
   return (
     <div>
           <div class="sidebar">
-            <Link to="/adminDashboard">
+            <Link to="#">
               <span className="iconSize">
                 <BsFillGridFill size={25} />
               </span>
               Dashboard
             </Link>
-            <Link to="/Users">
-              <span className="iconSize">
-                <HiOutlineUsers size={25} />
-              </span>
-              #
-            </Link>
-            <Link to="/TicketSupports">
-              <span className="iconSize">
-                <GoStack size={25} />
-              </span>
-              #
-            </Link>
-            <Link to="/Revenue">
-              <span className="iconSize">
-                <BiDollar size={25} />
-              </span>
-              #
-            </Link>
-            <Link to="/AdminEvents">
+            <Link to="#">
               <span className="iconSize">
                 <BiHomeAlt2 size={25} />
               </span>
-              #
-            </Link>          
+              Create a Paper
+            </Link>  
+            <Link to="#">
+              <span className="iconSize">
+                <HiOutlineUsers size={25} />
+              </span>
+              Add Question
+            </Link>
+            <Link to="#">
+              <span className="iconSize">
+                <GoStack size={25} />
+              </span>
+              Question Bank
+            </Link>
+            <Link to="#">
+              <span className="iconSize">
+                <BiDollar size={25} />
+              </span>
+              Add Instruction
+            </Link>
+            <Link to="#">
+              <span className="iconSize">
+                <BiHomeAlt2 size={25} />
+              </span>
+              Instruction Bank
+            </Link>                  
             </div>
         </div>
 
