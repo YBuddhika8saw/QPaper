@@ -1,9 +1,9 @@
 import express from "express";
 const router = express.Router();
+import { addQuestion } from "../controllers/questionController.js";
 
-// Define your routes
-router.get("/hello", (req, res) => {
-    res.send("Hello from questionRoutes!");
-});
+
+// Route to handle adding a question
+router.post('/addQuestion', addQuestion);
 
 export default router;

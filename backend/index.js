@@ -2,11 +2,18 @@ import express from "express";
 import pool from "./config/db.js";
 import bodyParser from "body-parser";
 import questionRoutes from './routes/questionRoutes.js';
+import cors from 'cors';
 const port = 5000
 
 
+// Create Express app
 
-const app = express();
+const app = express()
+app.use(cors());
+// Parse JSON bodies
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 
 app.use('/api/question', questionRoutes);
 

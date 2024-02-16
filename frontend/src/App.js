@@ -6,7 +6,12 @@ import Home from './pages/Home'
 import Dashboard from './pages/Dashboard';
 import AddQuestions from './pages/AddQuestions';
 
+
+
 function App() {
+
+ 
+
   return (
     <div>
       {/* creating routes */}
