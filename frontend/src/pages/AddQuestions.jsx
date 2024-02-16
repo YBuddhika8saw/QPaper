@@ -3,8 +3,6 @@ import { MDBInput, MDBBtn, MDBRange, MDBTextArea } from "mdb-react-ui-kit";
 import Sidebar from "../components/Sidebar";
 import { useState } from "react";
 import axios from "axios"; 
-import { toast } from "react-toastify";
-import { useNavigate } from 'react-router-dom'
 
 export default function AddQuestions() {
   const [qText, setQText] = useState("");
@@ -14,7 +12,6 @@ export default function AddQuestions() {
   const [qSubjectArea, setqSubjectArea] = useState("");
   const [qDifficulty, setqDifficulty] = useState("");
   const [qSpace, setqSpace] = useState("");
-  const navigate = useNavigate()
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -29,15 +26,18 @@ export default function AddQuestions() {
       qSpace
     };
 
-    axios.post("/api/question/addQuestion", formData)
-      .then((response) => {
-        console.log("Form submitted successfully");
-        toast.success("Ticket added successfully!");
-        navigate("/Dashboard");
-      })
-      .catch((error) => {
-        console.error("Error submitting form:", error);
-      });
+
+    axios.post(`http://localhost:5000/api/question/addQuestion`, { formData })
+    .then(res => {
+      console.log(res);
+      console.log(res.data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+
+  
   };
 
   return (

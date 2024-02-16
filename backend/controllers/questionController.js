@@ -8,8 +8,7 @@ const addQuestion = asyncHandler(async (req, res) => {
         res.status(400).send("Bad request: Request body is missing.");
         return;
     }
-// console.log('hello');
-//     console.log(req.body);
+
 
     const {
         qText,
@@ -19,7 +18,9 @@ const addQuestion = asyncHandler(async (req, res) => {
         qSubjectArea,
         qDifficulty,
         qSpace
-    } = req.body;
+    } = req.body.formData;
+
+    
 
     
     const question = await addQuestionToModel(
