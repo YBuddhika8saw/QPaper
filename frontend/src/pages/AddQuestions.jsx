@@ -86,12 +86,15 @@ export default function AddQuestions() {
               onChange={(e) => setQText(e.target.value)}
             />
 
-            <MDBInput wrapperClass="mb-4" id="qTime" label="Question Time" value={qTime} onChange={(e) => setqTime(e.target.value)}/>
+            <MDBInput wrapperClass="mb-4" id="qTime" label="Question Time" type="number"
+        pattern="[0-9]*" value={qTime} onChange={(e) => setqTime(e.target.value)}/>
 
             <MDBInput
               wrapperClass="mb-4"
               id="qSpace"
               label="Space Allocation in Inches"
+              type="number"
+        pattern="[0-9]*"
               value={qSpace}
               onChange={(e) => setqSpace(e.target.value)}
             />
