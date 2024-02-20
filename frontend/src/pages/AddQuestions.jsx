@@ -80,7 +80,7 @@ export default function AddQuestions() {
             <MDBTextArea
               id="qText"
               wrapperClass="mb-4"
-              rows={8}
+              rows={5}
               label="Question Text"
               value={qText}
               onChange={(e) => setQText(e.target.value)}
