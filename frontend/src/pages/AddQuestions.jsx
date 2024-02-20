@@ -3,6 +3,7 @@ import { MDBInput, MDBBtn, MDBRange, MDBTextArea } from "mdb-react-ui-kit";
 import Sidebar from "../components/Sidebar";
 import { useState } from "react";
 import axios from "axios"; 
+import Swal from 'sweetalert2'
 
 export default function AddQuestions() {
   const [qText, setQText] = useState("");
@@ -33,7 +34,8 @@ export default function AddQuestions() {
     // Check if the request was successful
     if (response.status === 201 && response.data.key === 'success') {
       // Display success message
-      alert('Question added successfully');
+      Swal.fire("Question added successfully");
+      // alert('');
       // Reset form fields
       setQText("");
       setqTime("");

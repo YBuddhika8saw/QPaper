@@ -1,9 +1,10 @@
 import React from 'react'
 import { BsFillGridFill } from "react-icons/bs";
-import { HiOutlineUsers } from "react-icons/hi";
-import { BiDollar } from "react-icons/bi";
-import { BiHomeAlt2 } from "react-icons/bi";
-import { GoStack } from "react-icons/go";
+import { BsFillQuestionSquareFill } from "react-icons/bs";
+import { GiNewspaper } from "react-icons/gi";
+import { BsBank } from "react-icons/bs";
+import { BsBank2 } from "react-icons/bs";
+import { MdOutlineIntegrationInstructions } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 
@@ -21,31 +22,31 @@ export default function Sidebar() {
             </Link>
             <Link to="#">
               <span className="iconSize">
-                <BiHomeAlt2 size={25} />
+                <GiNewspaper size={25} />
               </span>
               Create a Paper
             </Link>  
             <Link to="/AddQuestions">
               <span className="iconSize">
-                <HiOutlineUsers size={25} />
+                <BsFillQuestionSquareFill size={25} />
               </span>
               Add Question
             </Link>
             <Link to="#">
               <span className="iconSize">
-                <GoStack size={25} />
+                <BsBank size={25} />
               </span>
               Question Bank
             </Link>
             <Link to="#">
               <span className="iconSize">
-                <BiDollar size={25} />
+                <MdOutlineIntegrationInstructions size={25} />
               </span>
               Add Instruction
             </Link>
             <Link to="#">
               <span className="iconSize">
-                <BiHomeAlt2 size={25} />
+                <BsBank2 size={25} />
               </span>
               Instruction Bank
             </Link>                  
