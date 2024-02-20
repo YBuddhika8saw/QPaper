@@ -74,8 +74,8 @@ export default function AddQuestions() {
       <Sidebar />
 
       <div className="main">
-        <h1> Add Questions </h1>
         <div className="formContainer">
+           <h1> Add Questions </h1>
           <form onSubmit={submitHandler} method="post">
             <MDBTextArea
               id="qText"

@@ -1,22 +1,23 @@
 .main {
-    margin-left: 15%;
-    padding: 0px 10px;
-    background-color: #ffffff;
-    height: 100%;
-    overflow: auto;
-    font-size: medium;
-  }
+  margin-left: 15%;
+  padding: 0px 10px;
+  background-color: #ffffff;
+  color: #3b71ca;
+  height: 100%;
+  overflow: auto;
+  font-size: medium;
+  display: flex; /* Use flexbox to center its child element */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
 
-/* add questions form css  */
-/* Path: frontend/src/pages/AddQuestions.jsx */
 .formContainer {
-    width: 75%;
-    height: 90%;
-    background-color: #ffffff;
-    box-sizing: border-box; 
-  }
-  
-  .formContainer button {
-    width: 15%; 
-    margin-left: 85%;   
-  }
+  width: 75%;
+  height: 90%;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+.formContainer button {
+  width: 15%;
+}
