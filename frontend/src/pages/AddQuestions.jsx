@@ -1,6 +1,7 @@
 import React from "react";
 import { MDBInput, MDBBtn, MDBRange, MDBTextArea } from "mdb-react-ui-kit";
 import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 import { useState } from "react";
 import axios from "axios"; 
 import Swal from 'sweetalert2'
@@ -46,19 +47,30 @@ export default function AddQuestions() {
       setqSpace("");
     } else {
       // Display error message
-      alert('Failed to add question');
+      // alert('Failed to add question');
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Failed to add question",
+      });
     }
   } catch (error) {
     // Handle error
     console.error('Error:', error);
     // Display error message
-    alert('An error occurred while adding the question');
+    // alert('An error occurred while adding the question');
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "An error occurred while adding the question",
+    });
   }
 };
 
 
   return (
     <>
+      <Navbar />
       <Sidebar />
 
       <div className="main">
