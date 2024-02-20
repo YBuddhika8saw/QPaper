@@ -3,6 +3,7 @@ import { MDBInput, MDBBtn, MDBRange, MDBTextArea } from "mdb-react-ui-kit";
 import Sidebar from "../components/Sidebar";
 import { useState } from "react";
 import axios from "axios"; 
+import Swal from 'sweetalert2'
 
 export default function AddQuestions() {
   const [qText, setQText] = useState("");
@@ -13,32 +14,48 @@ export default function AddQuestions() {
   const [qDifficulty, setqDifficulty] = useState("");
   const [qSpace, setqSpace] = useState("");
 
+
   const submitHandler = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const formData = {
-      qText,
-      qTime,
-      qType,
-      qSubject,
-      qSubjectArea,
-      qDifficulty,
-      qSpace
-    };
-
-
-    axios.post(`http://localhost:5000/api/question/addQuestion`, { formData })
-    .then(res => {
-      console.log(res);
-      console.log(res.data);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-
-
-  
+  const formData = {
+    qText,
+    qTime,
+    qType,
+    qSubject,
+    qSubjectArea,
+    qDifficulty,
+    qSpace
   };
+
+  try {
+    const response = await axios.post(`http://localhost:5000/api/question/addQuestion`, { formData });
+
+    // Check if the request was successful
+    if (response.status === 201 && response.data.key === 'success') {
+      // Display success message
+      Swal.fire("Question added successfully");
+      // alert('');
+      // Reset form fields
+      setQText("");
+      setqTime("");
+      setqType("");
+      setqSubject("");
+      setqSubjectArea("");
+      setqDifficulty(1);
+      setqSpace("");
+    } else {
+      // Display error message
+      alert('Failed to add question');
+    }
+  } catch (error) {
+    // Handle error
+    console.error('Error:', error);
+    // Display error message
+    alert('An error occurred while adding the question');
+  }
+};
+
 
   return (
     <>
