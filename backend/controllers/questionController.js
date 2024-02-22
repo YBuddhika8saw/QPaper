@@ -1,5 +1,8 @@
 import asyncHandler from "express-async-handler";
 import { addQuestion as addQuestionToModel } from "../models/questionModel.js";
+import multer from "multer";
+
+
 
 
 const addQuestion = asyncHandler(async (req, res) => {
@@ -9,7 +12,6 @@ const addQuestion = asyncHandler(async (req, res) => {
         return;
     }
 
-
     const {
         qText,
         qTime,
@@ -17,12 +19,13 @@ const addQuestion = asyncHandler(async (req, res) => {
         qSubject,
         qSubjectArea,
         qDifficulty,
-        qSpace
+        qSpace,
+        qMarks,
+        qImage
     } = req.body.formData;
 
-    
+   
 
-    
     const question = await addQuestionToModel(
         qText,
         qTime,
@@ -30,7 +33,9 @@ const addQuestion = asyncHandler(async (req, res) => {
         qSubject,
         qSubjectArea,
         qDifficulty,
-        qSpace
+        qSpace,
+        qMarks,
+        qImage
     );
 
     if (question) {
@@ -43,5 +48,8 @@ const addQuestion = asyncHandler(async (req, res) => {
         throw new Error("Invalid question data");
     }
 });
+
+
+
 
 export { addQuestion };
