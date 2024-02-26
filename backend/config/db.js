@@ -1,10 +1,10 @@
 import mysql from "mysql";
 
 const dbConfig = {
-  host: "sql6.freesqldatabase.com",
-  user: "sql6685147",
-  password: "D7uNzeQ1xB",
-  database: "sql6685147"
+  host: "localhost",
+  user: "root",
+  password: "Password",
+  database: "quizad"
 };
 
 // Create a connection pool

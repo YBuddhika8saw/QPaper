@@ -1,5 +1,7 @@
 import pool from "../config/db.js";
 import asyncHandler from 'express-async-handler';
+import multer from 'multer';
+import path from 'path';
 
 const addQuestion = asyncHandler(async (
     qText,
@@ -8,11 +10,14 @@ const addQuestion = asyncHandler(async (
     qSubject,
     qSubjectArea,
     qDifficulty,
-    qSpace
+    qSpace,
+    qMarks,
+    qImage
 ) => {
     const addQuestionQuery = `
-        INSERT INTO questions (question_text, expected_time, question_type, subject, difficulty_level, subject_area, space_allocated)
-        VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        INSERT INTO questions (question_text, expected_time, question_type, subject, difficulty_level, subject_area, space_allocated,mark,image_name)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        
 
     try {
         const result = await pool.query(addQuestionQuery, [
@@ -22,19 +27,19 @@ const addQuestion = asyncHandler(async (
             qSubject,
             qDifficulty,
             qSubjectArea,
-            qSpace
+            qSpace,
+            qMarks,
+            qImage
         ]);
+
+        
+
         return true;
-        // if (result && result.rows && result.rows.length > 0) {
-        //     const insertedQuestion = result.rows[0];
-        //     return insertedQuestion;
-        // } else {
-        //     throw new Error("No rows returned from database query");
-        // }
     } catch (error) {
         console.error("Error executing database query:", error);
         throw new Error("Failed to add question to database");
     }
 });
 
-export { addQuestion };
+
+export { addQuestion};
