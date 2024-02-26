@@ -22,13 +22,12 @@ export default function AddQuestions() {
   const [qDifficulty, setqDifficulty] = useState("");
   const [qSpace, setqSpace] = useState("");
   const [qMarks, setqMarks] = useState("");
-  const [qImage, setqImage] = useState(null);
+  const [qImage, setqImage] = useState();
   const fileInputRef = useRef(null);
 
   const submitHandler = async (e) => {
-
-     // Function to upload image
-     const uploadImage = async (img) => {
+    // Function to upload image
+    const uploadImage = async (img) => {
       try {
         if (img) {
           const imageFormData = new FormData();
@@ -51,10 +50,32 @@ export default function AddQuestions() {
     };
 
 
-
+    const uploadImageCallroute = async (file)=>{
+      const imgData = new FormData();
+        imgData.append("image", file); // Append the file object, not qImage
+      
+        try {
+            const response = await axios.post(`http://localhost:5000/api/question/addImg`, imgData);
+            console.log('Image uploaded successfully');
+            // Access the uploaded image information from the response
+            const imgName = response.data.filename;
+            const imgPath = response.data.path;
+            console.log('Uploaded image filename:', imgName);
+            console.log('Uploaded image path:', imgPath);
+            return(imgName);
+            // Set the uploaded image filename to the state variable qImage
+            // setqImage(imgName);
+           
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            // Handle error as needed
+        } 
+      }
 
     e.preventDefault();
-    const qImageFilename = await uploadImage(qImage);
+    await uploadImage(qImage);
+    const qImageFilename = await uploadImageCallroute(qImage);
+    
     const formData = {
       qText,
       qTime,
@@ -64,11 +85,12 @@ export default function AddQuestions() {
       qDifficulty,
       qSpace,
       qMarks,
-      qImage:qImageFilename
+      qImage: qImageFilename,
     };
 
-
     try {
+   
+
       const response = await axios.post(
         `http://localhost:5000/api/question/addQuestion`,
         { formData }
@@ -110,11 +132,12 @@ export default function AddQuestions() {
   };
 
   // upload image
-  const handleQImageChange = (e) => {
+  const handleQImageChange = async (e) => {
     const file = e.target.files[0];
     setqImage(file);
-    
-  };
+};
+
+  
 
   return (
     <>
@@ -142,6 +165,7 @@ export default function AddQuestions() {
               label="Input Image File"
               id="qImage"
               type="file"
+              name="qImage"
               onChange={handleQImageChange}
               ref={fileInputRef}
             />

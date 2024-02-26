@@ -1,6 +1,8 @@
 import asyncHandler from "express-async-handler";
 import { addQuestion as addQuestionToModel } from "../models/questionModel.js";
+import expressFileUpload from 'express-fileupload';
 import multer from "multer";
+import path from 'path';
 
 
 
@@ -23,6 +25,8 @@ const addQuestion = asyncHandler(async (req, res) => {
         qMarks,
         qImage
     } = req.body.formData;
+
+    
 
    
 
@@ -51,5 +55,22 @@ const addQuestion = asyncHandler(async (req, res) => {
 
 
 
+// @desc    Upload single file
+// @route   POST /api/upload/single
+// @access  Public
+const addImg = asyncHandler(async (req, res) => {
+  const file = req.file;
+  if (!file) {
+    res.status(400);
+    throw new Error('No file uploaded');
+  }
+  res.status(200).json({
+    filename: file.filename,
+    path: path.join('frontend/src/assets/images/uploads', file.filename),
+  });
+});
 
-export { addQuestion };
+
+
+
+export { addQuestion,addImg };
