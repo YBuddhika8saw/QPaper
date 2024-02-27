@@ -1,0 +1,46 @@
+CREATE TABLE questions (
+    question_id INT AUTO_INCREMENT PRIMARY KEY,
+    question_text VARCHAR(15000),
+    expected_time FLOAT,
+    space_allocated FLOAT,
+    difficulty_level INT,
+    question_type VARCHAR(255),
+    subject VARCHAR(255),
+    subject_area VARCHAR(255),
+    mark INT,
+    image_name VARCHAR(255)
+);
+
+
+CREATE TABLE paper (
+    paper_id INT AUTO_INCREMENT PRIMARY KEY,
+    paper_name VARCHAR(255),
+    subject VARCHAR(255),
+    exam_name VARCHAR(255),
+    exam_date DATE,
+    at_time TIME
+);
+
+
+CREATE TABLE paper_questions (
+    paper_id INT,
+    question_id INT,
+    PRIMARY KEY (paper_id, question_id),
+    FOREIGN KEY (paper_id) REFERENCES paper(paper_id),
+    FOREIGN KEY (question_id) REFERENCES questions(question_id)
+);
+
+
+CREATE TABLE instruction (
+    instruction_id INT AUTO_INCREMENT PRIMARY KEY,
+    instruction_text VARCHAR(15000)
+);
+
+CREATE TABLE paper_instruction (
+    paper_id INT,
+    instruction_id INT,
+    PRIMARY KEY (paper_id, instruction_id),
+    FOREIGN KEY (paper_id) REFERENCES paper(paper_id),
+    FOREIGN KEY (instruction_id) REFERENCES instruction(instruction_id)
+);
+

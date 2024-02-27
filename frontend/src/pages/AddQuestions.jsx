@@ -59,16 +59,13 @@ export default function AddQuestions() {
             console.log('Image uploaded successfully');
             // Access the uploaded image information from the response
             const imgName = response.data.filename;
-            const imgPath = response.data.path;
-            console.log('Uploaded image filename:', imgName);
-            console.log('Uploaded image path:', imgPath);
+            // const imgPath = response.data.path;
+            
+            
             return(imgName);
-            // Set the uploaded image filename to the state variable qImage
-            // setqImage(imgName);
            
         } catch (error) {
             console.error('Error uploading image:', error);
-            // Handle error as needed
         } 
       }
 
@@ -109,7 +106,6 @@ export default function AddQuestions() {
         setqDifficulty(1);
         setqSpace("");
         setqMarks("");
-        // setqImage(null);
         fileInputRef.current.value = null;
       } else {
         // Display error message
@@ -131,7 +127,9 @@ export default function AddQuestions() {
     }
   };
 
-  // upload image
+
+
+  // upload image 
   const handleQImageChange = async (e) => {
     const file = e.target.files[0];
     setqImage(file);
