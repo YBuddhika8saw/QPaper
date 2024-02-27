@@ -51,9 +51,22 @@ const getSubjects = asyncHandler(async () =>  {
 });
 
 
+//get all questions in database question table filtered by subject
+const getQuestions = asyncHandler(async (subject) =>  {
+    const getQuestionsQuery = `SELECT * FROM questions WHERE subject = ?`;
+    try {        
+        const result = await query(getQuestionsQuery,[subject]);
+        return result;
+    } catch (error) {
+        console.error("Error executing database query:", error);
+        throw new Error("Failed to get questions from database");
+    } 
+});
 
 
 
 
 
-export { addQuestion, getSubjects};
+
+
+export { addQuestion, getSubjects,getQuestions};
