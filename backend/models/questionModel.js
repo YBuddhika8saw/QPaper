@@ -40,7 +40,7 @@ const addQuestion = asyncHandler(async (
 
 //get subjects in database question table
 const getSubjects = asyncHandler(async () =>  {
-    const getSubjectsQuery = `SELECT DISTINCT subject FROM questions ORDER BY subject`;
+    const getSubjectsQuery = `SELECT DISTINCT subject FROM questions`;
     try {        
         const result = await query(getSubjectsQuery,[]);
         return result;

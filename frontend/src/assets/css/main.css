@@ -21,3 +21,16 @@
 .formContainer button {
   width: 15%;
 }
+
+.mainPart{
+  margin-left: 15%;
+  padding: 0px 10px;
+  background-color: #ffffff;
+  color: #464e5c;
+  height: 100%;
+  overflow: auto;
+  font-size: medium;
+  display: flex; /* Use flexbox to center its child element */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}

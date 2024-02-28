@@ -92,7 +92,4 @@ const getSubjectList = asyncHandler(async (req, res) => {
     }
   });
 
-
-
-
 export { addQuestion,addImg,getSubjectList,getQuestions};
