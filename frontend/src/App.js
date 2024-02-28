@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import Dashboard from './pages/Dashboard';
 import AddQuestions from './pages/AddQuestions';
 import CreatePaper from './pages/CreatePaper';
+import GenaratedPaper from './pages/GenaratedPaper';
 
 
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element ={<Dashboard />} />
         <Route path="/AddQuestions" element ={<AddQuestions />} />
         <Route path="/CreatePaper" element ={<CreatePaper />} />
+        <Route path="/CreatePaper/GenaratedPaper" element ={<GenaratedPaper />} />
       </Routes>
     
     </div>

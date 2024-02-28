@@ -34,3 +34,31 @@
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
 }
+
+
+/* genarate question main */
+.genarateQuestionMain {
+  margin-left: 15%;
+  padding: 0px 10px;
+  background-color: #ffffff;
+  color: #464e5c;
+  height: 100%;
+  overflow: auto;
+  font-size: medium;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+/* genarate paper Question Box */
+.questionBox {
+  margin-left: 5%;
+  padding: 0px 10px;
+  background-color: #ffffff;
+  color: #000000;
+  height: 100%;
+  overflow: auto;
+  font-size: medium;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  margin-bottom: 48px;
+}

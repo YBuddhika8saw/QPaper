@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function ChooseSubject() {
   const [subject, setSubject] = useState([]);
@@ -17,19 +18,36 @@ export default function ChooseSubject() {
       });
   }, []);
 
+  const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const subject = data.get("subject");
+    // Redirect to another page with the subject included as a query parameter
+    navigate(
+      `/CreatePaper/GenaratedPaper?subject=${encodeURIComponent(subject)}`
+    );
+  };
+
   return (
     <div>
       <h1>Choose Subject</h1>
       <br />
       <br />
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="subject">Subject</label>
 
-          <select className="form-control" id="subject">
-            {subject.map((subjects) => (
-              <option value={subjects.subject}>{subjects.subject}</option>
-            ))}
+          <select className="form-control" id="subject" name="subject">
+            {subject.map(
+              (subjects) =>
+                subjects.subject !== null && (
+                  <option key={subjects.subject} value={subjects.subject}>
+                    {subjects.subject}
+                  </option>
+                )
+            )}
           </select>
         </div>
         <br />

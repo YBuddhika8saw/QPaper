@@ -79,7 +79,7 @@ const getSubjectList = asyncHandler(async (req, res) => {
 
   //get all questions in database question table filtered by subject
   const getQuestions = asyncHandler(async (req, res) => {
-    const subject = req.body.subject;
+    const subject = req.query.subject;
     const questions = await getQuestionsFromModel(subject)
     if (questions) {
       res.status(200).json({
