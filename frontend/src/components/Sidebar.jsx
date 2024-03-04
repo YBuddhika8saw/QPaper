@@ -20,7 +20,7 @@ export default function Sidebar() {
               </span>
               Dashboard
             </Link>
-            <Link to="#">
+            <Link to="/CreatePaper">
               <span className="iconSize">
                 <GiNewspaper size={25} />
               </span>

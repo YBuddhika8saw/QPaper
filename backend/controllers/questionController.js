@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 import { addQuestion as addQuestionToModel } from "../models/questionModel.js";
-import expressFileUpload from 'express-fileupload';
-import multer from "multer";
+import { getSubjects as getSubjectsFromModel } from "../models/questionModel.js";
+import { getQuestions as getQuestionsFromModel } from "../models/questionModel.js";
 import path from 'path';
 
 
@@ -26,10 +26,6 @@ const addQuestion = asyncHandler(async (req, res) => {
         qImage
     } = req.body.formData;
 
-    
-
-   
-
     const question = await addQuestionToModel(
         qText,
         qTime,
@@ -53,11 +49,7 @@ const addQuestion = asyncHandler(async (req, res) => {
     }
 });
 
-
-
-// @desc    Upload single file
-// @route   POST /api/upload/single
-// @access  Public
+//Upload image file
 const addImg = asyncHandler(async (req, res) => {
   const file = req.file;
   if (!file) {
@@ -70,7 +62,34 @@ const addImg = asyncHandler(async (req, res) => {
   });
 });
 
+//get subjects in database question table
+const getSubjectList = asyncHandler(async (req, res) => {
+    const subjects = await getSubjectsFromModel()
+    if (subjects) {
+      res.status(200).json({
+        subjects
+      })
+    } else {
+      res.status(400).json({
+        message: 'Invalid verification token or token expired',
+      })
+    }
+  });
 
 
+  //get all questions in database question table filtered by subject
+  const getQuestions = asyncHandler(async (req, res) => {
+    const subject = req.query.subject;
+    const questions = await getQuestionsFromModel(subject)
+    if (questions) {
+      res.status(200).json({
+        questions
+      })
+    } else {
+      res.status(400).json({
+        message: 'Invalid verification token or token expired',
+      })
+    }
+  });
 
-export { addQuestion,addImg };
+export { addQuestion,addImg,getSubjectList,getQuestions};

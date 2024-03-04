@@ -1,5 +1,5 @@
 import express from "express";
-import pool from "./config/db.js";
+import {connectDB} from "./config/db.js";
 import bodyParser from "body-parser";
 import questionRoutes from './routes/questionRoutes.js';
 import cors from 'cors';
@@ -20,6 +20,7 @@ app.use('/api/question', questionRoutes);
 app
   .listen(port, () => {
     console.log(`Backend started on port ${port}`)
+    connectDB();
   })
   .on('error', (err) => {
     console.error(`Backend error: ${err}`)
@@ -35,9 +36,9 @@ app
 
 // app.use(bodyParser.json());
 
-// app.get("/", (req, res) => {
+// app.get("/get", (req, res) => {
 //     // Execute the query
-//     pool.query("SELECT * FROM instruction", (err, result) => {
+//     pool.query("SELECT DISTINCT subject FROM questions ORDER BY subject", (err, result) => {
 //         if (err) {
 //             // Handle error
 //             console.error("Error executing query:", err);
