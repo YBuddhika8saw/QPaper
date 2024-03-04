@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import AddQuestions from './pages/AddQuestions';
 import CreatePaper from './pages/CreatePaper';
 import GenaratedPaper from './pages/GenaratedPaper';
+import QuestionBank from './pages/QuestionBank';
 
 
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/AddQuestions" element ={<AddQuestions />} />
         <Route path="/CreatePaper" element ={<CreatePaper />} />
         <Route path="/CreatePaper/GenaratedPaper" element ={<GenaratedPaper />} />
+        <Route path="/QuestionBank" element ={<QuestionBank />} />
       </Routes>
     
     </div>

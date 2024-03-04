@@ -9,6 +9,7 @@
   display: flex; /* Use flexbox to center its child element */
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
+  margin-top: 1%;
 }
 
 .formContainer {
@@ -33,11 +34,13 @@
   display: flex; /* Use flexbox to center its child element */
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
+  margin-top: 1%;
 }
 
 
 /* genarate question main */
 .genarateQuestionMain {
+  padding-right: 15%;
   margin-left: 15%;
   padding: 0px 10px;
   background-color: #ffffff;
@@ -47,6 +50,7 @@
   font-size: medium;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
+  margin-top: 1%;
 }
 
 /* genarate paper Question Box */

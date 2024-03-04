@@ -16,6 +16,10 @@ const addQuestion = asyncHandler(async (
     qMarks,
     qImage
 ) => {
+    // Convert qSubject and qSubjectArea to uppercase
+    const subjectUpperCase = qSubject.toUpperCase();
+    const subjectAreaUpperCase = qSubjectArea.toUpperCase();
+
     const addQuestionQuery = `
         INSERT INTO questions (question_text, expected_time, question_type, subject, difficulty_level, subject_area, space_allocated,mark,image_name)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
@@ -24,9 +28,9 @@ const addQuestion = asyncHandler(async (
             qText,
             qTime,
             qType,
-            qSubject,
+            subjectUpperCase, // Use the uppercase version
             qDifficulty,
-            qSubjectArea,
+            subjectAreaUpperCase, // Use the uppercase version
             qSpace,
             qMarks,
             qImage
@@ -37,6 +41,7 @@ const addQuestion = asyncHandler(async (
         throw new Error("Failed to add question to database");
     }
 });
+
 
 //get subjects in database question table
 const getSubjects = asyncHandler(async () =>  {
