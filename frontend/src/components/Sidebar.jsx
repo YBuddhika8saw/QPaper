@@ -32,7 +32,7 @@ export default function Sidebar() {
               </span>
               Add Question
             </Link>
-            <Link to="#">
+            <Link to="/QuestionBank">
               <span className="iconSize">
                 <BsBank size={25} />
               </span>

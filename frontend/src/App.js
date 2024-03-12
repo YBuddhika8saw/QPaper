@@ -8,6 +8,7 @@ import AddQuestions from './pages/AddQuestions';
 import CreatePaper from './pages/CreatePaper';
 import GenaratedPaper from './pages/GenaratedPaper';
 import QuestionBank from './pages/QuestionBank';
+import SubjectQuestions from './pages/SubjectQuestions';
 
 
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/CreatePaper" element ={<CreatePaper />} />
         <Route path="/CreatePaper/GenaratedPaper" element ={<GenaratedPaper />} />
         <Route path="/QuestionBank" element ={<QuestionBank />} />
+        <Route path="/QuestionBank/Questions" element ={<SubjectQuestions />} />
       </Routes>
     
     </div>

@@ -9,7 +9,7 @@ export default function CreatePaper() {
       <Navbar />
       <Sidebar />
       <div className='mainPart'>
-      <ChooseSubject />
+        <ChooseSubject value={1} />
       </div>
     </div>
   )
