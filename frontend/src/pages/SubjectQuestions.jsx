@@ -37,7 +37,7 @@ export default function SubjectQuestions() {
   const sendIds = () => {
     // Redirect to another page with the selectedIds included as a query parameter
     navigate(
-      `/CreatePaper/GenaratedPaper?subject=${encodeURIComponent(selectedIds)}`
+      `/QuestionBank/GenaratedPaper?selectedIds=${encodeURIComponent(selectedIds.join(','))}`
     );
   }
 
