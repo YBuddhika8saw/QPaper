@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { usePDF } from "react-to-pdf";
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 
 export default function GenQuestionComponent() {
@@ -10,6 +11,7 @@ export default function GenQuestionComponent() {
   const params = new URLSearchParams(window.location.search);
   const subject = params.get("subject");
   const [questions, setQuestions] = useState([]);
+  const navigate = useNavigate();
 
   // Create a reference to the PDF component
   const options = {
@@ -33,6 +35,14 @@ export default function GenQuestionComponent() {
 
   // get frist 2 questions from the array
   const firstTwoQuestions = questions.slice(0, 2).map((value) => value);
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    // Redirect to another page with the subject included as a query parameter
+    navigate(
+      `/QuestionBank/Questions?subject=${encodeURIComponent(subject)}&id=${encodeURIComponent('hell0')}`
+    );
+  };
 
   return (
     
@@ -65,8 +75,8 @@ export default function GenQuestionComponent() {
         );
       })}
         </div>
-        <Button as="input" type="submit" onClick={() => toPDF()} value="Download PDF" />{' '} 
-        <Button>Select Questions</Button>
+        <Button as="input" type="submit" onClick={() => toPDF()} value="Download PDF" />{' '}
+        <Button onClick={handleClick}> Select Questions </Button>
     </div>
     
   );

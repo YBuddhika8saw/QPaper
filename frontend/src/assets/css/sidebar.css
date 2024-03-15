@@ -27,13 +27,6 @@
   margin-left: 0px;
 }
 
-.sidebar a.active {
-  background-color: #ffffff;
-  color: #9D3E83;
-  width: 100%;
-  margin-left: 0px;
-}
-
 .Link a {
   display: block;
   color: #3b71ca;

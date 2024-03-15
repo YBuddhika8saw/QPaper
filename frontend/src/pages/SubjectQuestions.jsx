@@ -56,6 +56,7 @@ function ViewQuestionDetailsModel(props) {
 export default function SubjectQuestions() {
   const params = new URLSearchParams(window.location.search);
   const subject = params.get("subject");
+  // const id = params.get("id");
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
@@ -92,9 +93,7 @@ export default function SubjectQuestions() {
     );
   };
 
-  // const View = (question) => () => {
-  //   console.log(question);
-  // };
+
 
   return (
     <div>
