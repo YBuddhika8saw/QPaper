@@ -2,9 +2,8 @@ import asyncHandler from "express-async-handler";
 import { addQuestion as addQuestionToModel } from "../models/questionModel.js";
 import { getSubjects as getSubjectsFromModel } from "../models/questionModel.js";
 import { getQuestions as getQuestionsFromModel } from "../models/questionModel.js";
+import {getQuestionById as getQuestionByIdFromModel} from "../models/questionModel.js";
 import path from 'path';
-
-
 
 
 const addQuestion = asyncHandler(async (req, res) => {
@@ -76,7 +75,6 @@ const getSubjectList = asyncHandler(async (req, res) => {
     }
   });
 
-
   //get all questions in database question table filtered by subject
   const getQuestions = asyncHandler(async (req, res) => {
     const subject = req.query.subject;
@@ -92,4 +90,20 @@ const getSubjectList = asyncHandler(async (req, res) => {
     }
   });
 
-export { addQuestion,addImg,getSubjectList,getQuestions};
+
+  //get question in database question table filtered by Question id
+  const getQuestionsById = asyncHandler(async (req, res) => {
+    const qId = req.query.qId;
+    const questions = await getQuestionByIdFromModel(qId)
+    if (questions) {
+      res.status(200).json({
+        questions
+      })
+    } else {
+      res.status(400).json({
+        message: 'Invalid verification token or token expired',
+      })
+    }
+  });
+
+export { addQuestion,addImg,getSubjectList,getQuestions,getQuestionsById};

@@ -1,13 +1,16 @@
 .sidebar {
-  position: absolute;
-  height: 90%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
   width: 15%;
   background-color: #ffffff;
-  margin-top: 0px;
+  margin-top: 4%;
   font-size: smaller;
   color: #3b71ca;
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2), 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
+
 
 .sidebar a {
   display: block;
@@ -20,13 +23,6 @@
 .sidebar a:hover {
   background-color: #3b71ca;
   color: #ffffff;
-  width: 100%;
-  margin-left: 0px;
-}
-
-.sidebar a.active {
-  background-color: #ffffff;
-  color: #9D3E83;
   width: 100%;
   margin-left: 0px;
 }
@@ -60,3 +56,4 @@
 .logOut {
   margin-top: 350px;
 }
+
