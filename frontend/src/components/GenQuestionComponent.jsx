@@ -65,7 +65,8 @@ export default function GenQuestionComponent() {
         );
       })}
         </div>
-        <Button as="input" type="submit" onClick={() => toPDF()} value="Download PDF" />{' '}
+        <Button as="input" type="submit" onClick={() => toPDF()} value="Download PDF" />{' '} 
+        <Button>Select Questions</Button>
     </div>
     
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import { usePDF } from "react-to-pdf";
-import { Button} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -47,49 +47,49 @@ export default function GenPapersSelectedQuestions() {
   }, [selectedIds]);
 
   return (
-    <div size="A4">
-        <Navbar />
-        <Sidebar />
-<div className="genarateQuestionMain">
-      {/* create the PDF component  */}
-      <div ref={targetRef}>
-        {questions.map((questionList, index) => (
-          <div key={index}>
-            {questionList.map((question, innerIndex) => {
-              const ansHeight = question.space_allocated * 96; // Calculate height based on the space_allocated property of the question (1 Inch = 96px)
-              return (
-                <div className="questionBox" key={innerIndex}>
-                  <h5>{`${index + 1}. ${question.question_text}`}</h5>
+    <div>
+      <Navbar />
+      <Sidebar />
+      <div className="genarateQuestionMain">
+        {/* create the PDF component  */}
+        <div ref={targetRef}>
+          {questions.map((questionList, index) => (
+            <div key={index}>
+              {questionList.map((question, innerIndex) => {
+                const ansHeight = question.space_allocated * 96; // Calculate height based on the space_allocated property of the question (1 Inch = 96px)
+                return (
+                  <div className="questionBox" key={innerIndex}>
+                    <h5>{`${index + 1}. ${question.question_text}`}</h5>
 
-                  <div style={{ textAlign: "right" }}>
-                    {question.mark} marks
-                  </div>
-                  <img src={`${question.image_name}`} alt="" />
+                    <div style={{ textAlign: "right" }}>
+                      {question.mark} marks
+                    </div>
+                    <img src={`${question.image_name}`} alt="" />
 
-                  <div
-                    style={{
-                      border: "1px solid black",
-                      borderRadius: "5px",
-                      height: `${ansHeight}px`, // Set the height dynamically based on the calculated height
-                    }}
-                  >
-                    <div style={{ fontSize: "10px" }}>
-                      <b>ANSWER IN THIS BOX</b>
+                    <div
+                      style={{
+                        border: "1px solid black",
+                        borderRadius: "5px",
+                        height: `${ansHeight}px`, // Set the height dynamically based on the calculated height
+                      }}
+                    >
+                      <div style={{ fontSize: "10px" }}>
+                        <b>ANSWER IN THIS BOX</b>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        ))}
+                );
+              })}
+            </div>
+          ))}
+        </div>
+        <Button
+          as="input"
+          type="submit"
+          onClick={() => toPDF()}
+          value="Download PDF"
+        />{" "}
       </div>
-      <Button
-        as="input"
-        type="submit"
-        onClick={() => toPDF()}
-        value="Download PDF"
-      />{" "}
-    </div>
     </div>
   );
 }
