@@ -54,9 +54,7 @@ export default function GenQuestionComponent() {
 
         return (
           <div className="questionBox" key={index}>
-            <h5>{`${index + 1}. ${question.question_text}`}</h5>
-        
-
+            <span style={{fontSize:'18px'}} >{`${index + 1}. ${question.question_text}`} </span>
             <div style={{ textAlign: "right" }}>{question.mark} marks</div>
             <img src={`${question.image_name}`} alt="" />
 
