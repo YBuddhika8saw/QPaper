@@ -3,6 +3,9 @@ import { addQuestion as addQuestionToModel } from "../models/questionModel.js";
 import { getSubjects as getSubjectsFromModel } from "../models/questionModel.js";
 import { getQuestions as getQuestionsFromModel } from "../models/questionModel.js";
 import {getQuestionById as getQuestionByIdFromModel} from "../models/questionModel.js";
+import{getTotalQuestionCount as getTotalQuestionCountFromModel} from "../models/questionModel.js";
+import{getTotalDistinctSubjectsCount as getTotalDistinctSubjectsCountFromModel} from "../models/questionModel.js";
+import{getTotalPaperCount as getTotalPaperCountFromModel} from "../models/questionModel.js";
 import path from 'path';
 
 
@@ -106,4 +109,30 @@ const getSubjectList = asyncHandler(async (req, res) => {
     }
   });
 
-export { addQuestion,addImg,getSubjectList,getQuestions,getQuestionsById};
+  //get question count
+  const getCountTotalQuestions = asyncHandler(async (req, res) => {
+    const questionsCount = await getTotalQuestionCountFromModel()
+      res.status(200).json({
+        questionsCount
+      })
+  });
+
+  //get subject count
+  const getTotalSubjectsCount = asyncHandler(async (req, res) => {
+    const subjectCount = await getTotalDistinctSubjectsCountFromModel()
+      res.status(200).json({
+        subjectCount
+      })
+  });
+
+  //get paper count
+  const getTotalPaperCount = asyncHandler(async (req, res) => {
+    const paperCount = await getTotalPaperCountFromModel()
+      res.status(200).json({
+        paperCount
+      })
+  });
+
+
+
+export { addQuestion,addImg,getSubjectList,getQuestions,getQuestionsById,getCountTotalQuestions,getTotalSubjectsCount,getTotalPaperCount};

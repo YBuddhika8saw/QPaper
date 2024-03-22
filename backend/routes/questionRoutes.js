@@ -1,7 +1,7 @@
 import express from "express";
 import upload from '../middleware/uploader.js';
 const router = express.Router();
-import { addQuestion,addImg,getSubjectList,getQuestions,getQuestionsById} from "../controllers/questionController.js";
+import { addQuestion,addImg,getSubjectList,getQuestions,getQuestionsById,getCountTotalQuestions,getTotalSubjectsCount,getTotalPaperCount} from "../controllers/questionController.js";
 
 
 // Route to handle adding a question
@@ -18,6 +18,15 @@ router.get('/getQuestions', getQuestions);
 
 //Route to get questions in database filtered by question id
 router.get('/getQuestionsById', getQuestionsById);
+
+//Route to get total question count in database
+router.get('/getTotalQuestions', getCountTotalQuestions);
+
+//Route to get total distinct subjects count in database
+router.get('/getTotalSubjects', getTotalSubjectsCount);
+
+//Route to get total paper count in database
+router.get('/getTotalPapers', getTotalPaperCount);
 
 export default router;
 
