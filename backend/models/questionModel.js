@@ -1,4 +1,3 @@
-// import {pool} from "../config/db.js";
 import {query} from "../config/db.js";
 import asyncHandler from 'express-async-handler';
 
@@ -81,9 +80,42 @@ const getQuestionById = asyncHandler(async (questionId) =>  {
 });
 
 
+// Function to get total question count from database
+const getTotalQuestionCount = asyncHandler(async () => {
+    const getTotalQuestionCountQuery = `SELECT COUNT(*) AS total_questions FROM questions`;
+    try {
+        const result = await query(getTotalQuestionCountQuery);
+        return result[0].total_questions;
+    } catch (error) {
+        console.error("Error executing database query:", error);
+        throw new Error("Failed to get total question count from database");
+    }
+});
+
+// Function to get total distinct subjects count from database
+const getTotalDistinctSubjectsCount = asyncHandler(async () => {
+    const getTotalDistinctSubjectsCountQuery = `SELECT COUNT(DISTINCT subject) AS total_distinct_subjects FROM questions`;
+    try {
+        const result = await query(getTotalDistinctSubjectsCountQuery);
+        return result[0].total_distinct_subjects;
+    } catch (error) {
+        console.error("Error executing database query:", error);
+        throw new Error("Failed to get total distinct subjects count from database");
+    }
+});
 
 
+// Function to get total paper count from database
+const getTotalPaperCount = asyncHandler(async () => {
+    const getTotalPaperCountQuery = `SELECT COUNT(*) AS total_papers FROM paper`;
+    try {
+        const result = await query(getTotalPaperCountQuery);
+        return result[0].total_papers;
+    } catch (error) {
+        console.error("Error executing database query:", error);
+        throw new Error("Failed to get total paper count from database");
+    }
+});
 
 
-
-export { addQuestion, getSubjects,getQuestions,getQuestionById};
+export { addQuestion, getSubjects,getQuestions,getQuestionById,getTotalQuestionCount,getTotalDistinctSubjectsCount,getTotalPaperCount};

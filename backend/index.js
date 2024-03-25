@@ -1,7 +1,7 @@
 import express from "express";
 import {connectDB} from "./config/db.js";
-import bodyParser from "body-parser";
 import questionRoutes from './routes/questionRoutes.js';
+import paperRoute from './routes/paperRoute.js';
 import cors from 'cors';
 const port = 5000
 
@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }))
 
 
 app.use('/api/question', questionRoutes);
+app.use('/api/paper', paperRoute);
 
 app
   .listen(port, () => {
