@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import path from 'path';
 
 import{getSubjectsInfo as getSubjectsInfoFromModel} from "../models/paperModel.js";
+import{addPaper as addPaperToModel} from "../models/paperModel.js";
 
 
 
@@ -14,4 +15,13 @@ import{getSubjectsInfo as getSubjectsInfoFromModel} from "../models/paperModel.j
   });
   
 
-  export {getSubjectsInfo};
+    //add Paper
+    const addPaper = asyncHandler(async (req, res) => {
+      const {pName,pSubject,pExam} = req.body;
+      const paperId = await addPaperToModel(pName,pSubject,pExam)
+      res.status(200).json({
+        paperId
+      })
+    });
+
+  export {getSubjectsInfo,addPaper};

@@ -1,4 +1,4 @@
-import {query} from "../config/db.js";
+import { query } from "../config/db.js";
 import asyncHandler from 'express-async-handler';
 
 
@@ -24,4 +24,41 @@ const getSubjectsInfo = asyncHandler(async () => {
 });
 
 
-export {getSubjectsInfo};
+// Add a paper to the database
+const addPaper = asyncHandler(async (
+    pName,
+    pSubject,
+    pExam
+) => {
+    // Convert qSubject and qSubjectArea to uppercase
+    const subjectUpperCase = pSubject.toUpperCase();
+    
+    const addPaperQuery = `
+    INSERT INTO paper (paper_name, subject, exam_name)
+    VALUES (?, ?, ?);`;
+    try {
+        // Execute the INSERT query
+        const result = await query(addPaperQuery, [
+            pName,
+            subjectUpperCase,
+            pExam
+        ]);
+    
+        // After the INSERT, execute the SELECT LAST_INSERT_ID() query
+        const lastInsertIdResult = await query("SELECT LAST_INSERT_ID() AS paper_id");
+    
+        // Extract the paper_id from the result
+        const paperId = lastInsertIdResult[0].paper_id;
+    
+        // Return the paper_id
+        return paperId;
+    } catch (error) {
+        console.error("Error executing database query:", error);
+        throw new Error("Failed to add question to database");
+    }
+    
+});
+
+
+
+export { getSubjectsInfo,addPaper };
