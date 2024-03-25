@@ -1,4 +1,3 @@
-// import {pool} from "../config/db.js";
 import {query} from "../config/db.js";
 import asyncHandler from 'express-async-handler';
 
@@ -117,10 +116,6 @@ const getTotalPaperCount = asyncHandler(async () => {
         throw new Error("Failed to get total paper count from database");
     }
 });
-
-
-
-
 
 
 export { addQuestion, getSubjects,getQuestions,getQuestionById,getTotalQuestionCount,getTotalDistinctSubjectsCount,getTotalPaperCount};
