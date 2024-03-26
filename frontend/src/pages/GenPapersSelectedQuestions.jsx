@@ -4,8 +4,20 @@ import { usePDF } from "react-to-pdf";
 import { Button } from "react-bootstrap";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+import Modal from "react-bootstrap/Modal";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+
 
 export default function GenPapersSelectedQuestions() {
+  const [paperName, setPaperName] = useState();
+  const [paperSubject, setPaperSubject] = useState();
+  const [paperExam, setPaperExam] = useState();
+  const navigate = useNavigate();
+const location = useLocation();
+
+
   // Create a reference to the PDF component
   const options = {
     filename: "questionpaper.pdf",
@@ -14,6 +26,8 @@ export default function GenPapersSelectedQuestions() {
     format: "a4",
   };
   const { toPDF, targetRef } = usePDF(options);
+
+  const [modalShow, setModalShow] = React.useState(false);
 
   // State to hold questions
   const [questions, setQuestions] = useState([]);
@@ -24,6 +38,18 @@ export default function GenPapersSelectedQuestions() {
     const selectedIdsString = params.get("selectedIds");
     return selectedIdsString ? selectedIdsString.split(",") : [];
   }, []);
+
+
+  //store subject 
+  const params = new URLSearchParams(window.location.search);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const subject = params.get("subject");
+    setPaperSubject(subject);
+  }, [location.search]);
+
+  //get type from url
+  const type = params.get("type");
 
   // Fetch questions when component mounts
   useEffect(() => {
@@ -46,10 +72,107 @@ export default function GenPapersSelectedQuestions() {
     fetchQuestions();
   }, [selectedIds]);
 
+  //Save paper from submit handler
+  const handleSubmitForPaper = async (e) => {
+    e.preventDefault();
+    const paperData = {
+      paperName,
+      paperSubject,
+      paperExam,
+      selectedIds,
+    };
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/api/paper/addPaper`,
+        { paperData }
+      );
+      console.log("Paper saved successfully:", response);
+      showSuccessMsg();
+      setModalShow(false);
+    } catch (error) {
+      console.error("Error saving paper:", error);
+    }
+  };
+
+  //show success msg after saving paper
+  const showSuccessMsg = () => {
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Paper has been saved",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    setPaperName("");
+    setPaperSubject("");
+    setPaperExam("");
+    navigate(`/`);
+  };
+
   return (
     <div>
       <Navbar />
       <Sidebar />
+
+      <Modal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Add Paper Details
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={handleSubmitForPaper} method="post">
+            <div className="form-group">
+              <label htmlFor="paperTitle">Paper Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="paperTitle"
+                placeholder="Enter Paper Title"
+                onChange={(e) => setPaperName(e.target.value)}
+              />
+              <label htmlFor="paperTitle">Subject</label>
+              <input
+                type="text"
+                className="form-control"
+                id="paperTitle"
+                placeholder="Enter subject"
+                value={paperSubject}
+                onChange={(e) => setPaperSubject(e.target.value)}
+                disabled
+              />
+
+              <label htmlFor="paperTitle">Exam Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="paperTitle"
+                placeholder="Exam Name"
+                onChange={(e) => setPaperExam(e.target.value)}
+              />
+              <br />
+              <button type="submit" className="btn btn-primary">
+                Save
+              </button>
+            </div>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            onClick={() => setModalShow(false)}
+            style={{ backgroundColor: "#f24f44" }}
+          >
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <div className="genarateQuestionMain">
         {/* create the PDF component  */}
         <div ref={targetRef}>
@@ -89,6 +212,14 @@ export default function GenPapersSelectedQuestions() {
           onClick={() => toPDF()}
           value="Download PDF"
         />{" "}
+        {type === "savedPaper" ? null : (
+          <Button
+            style={{ backgroundColor: "#fac532" }}
+            onClick={() => setModalShow(true)}
+          >
+            Save Paper
+          </Button>
+        )}
       </div>
     </div>
   );

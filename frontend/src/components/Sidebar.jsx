@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 export default function Sidebar() {
   return (
     <div>
-          <div class="sidebar">
+          <div className="sidebar">
             <Link to="/">
               <span className="iconSize">
                 <BsFillGridFill size={25} />
@@ -31,6 +31,12 @@ export default function Sidebar() {
                 <BsFillQuestionSquareFill size={25} />
               </span>
               Add Question
+            </Link>
+            <Link to="/Papers">
+              <span className="iconSize">
+                <BsFillQuestionSquareFill size={25} />
+              </span>
+              Papers
             </Link>
             <Link to="/QuestionBank">
               <span className="iconSize">
