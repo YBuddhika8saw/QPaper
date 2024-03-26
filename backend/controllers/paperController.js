@@ -3,6 +3,7 @@ import asyncHandler from "express-async-handler";
 import { getSubjectsInfo as getSubjectsInfoFromModel } from "../models/paperModel.js";
 import { addPaper as addPaperToModel } from "../models/paperModel.js";
 import{addPaperQuestions as addPaperQuestionToModel} from "../models/paperModel.js";
+import {getPaperBySubject as getPaperBySubjectFromModel} from "../models/paperModel.js";
 
 
 
@@ -60,6 +61,13 @@ const passPaperQuestionsToModel = async (paperId, selectedId) => {
 
 // get Papers by subject
  const getPaperBySubject = asyncHandler(async (req, res) => {
+  const { subject } = req.query;
+  const paperBySubject = await getPaperBySubjectFromModel(subject);
+  res.status(200).json({
+    paperBySubject
+  });
+ 
+});
 
 
-export { getSubjectsInfo, addPaperQuestions };
+export { getSubjectsInfo, addPaperQuestions,getPaperBySubject };
