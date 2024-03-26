@@ -78,8 +78,17 @@ const getPaperBySubject = asyncHandler(async (subject) => {
   }
 });
 
+//get questionIds from paper_questions table filtered by paper_id
+const getQuestionIdsByPaperId = asyncHandler(async (paperId) => {
+  const getQuestionIdsQuery = `SELECT question_id FROM paper_questions WHERE paper_id = ?;`;
+  try {
+    const result = await query(getQuestionIdsQuery, [paperId]);
+    return result;
+  } catch (error) {
+    console.error("Error executing database query:", error);
+    throw new Error("Failed to get question ids from database");
+  }
+});
 
 
-
-
-export { getSubjectsInfo, addPaper, addPaperQuestions, getPaperBySubject };
+export { getSubjectsInfo, addPaper, addPaperQuestions, getPaperBySubject,getQuestionIdsByPaperId };

@@ -4,6 +4,7 @@ import { getSubjectsInfo as getSubjectsInfoFromModel } from "../models/paperMode
 import { addPaper as addPaperToModel } from "../models/paperModel.js";
 import{addPaperQuestions as addPaperQuestionToModel} from "../models/paperModel.js";
 import {getPaperBySubject as getPaperBySubjectFromModel} from "../models/paperModel.js";
+import{getQuestionIdsByPaperId as getQuestionIdsByPaperIdFromModel} from "../models/paperModel.js";
 
 
 
@@ -66,8 +67,16 @@ const passPaperQuestionsToModel = async (paperId, selectedId) => {
   res.status(200).json({
     paperBySubject
   });
- 
+});
+
+//get question ids by paper id
+const getQuestionIdsByPaperId = asyncHandler(async (req,res) => {
+  const {paperId} = req.query;
+  const questionIds = await getQuestionIdsByPaperIdFromModel(paperId);
+  res.status(200).json({
+    questionIds
+  });
 });
 
 
-export { getSubjectsInfo, addPaperQuestions,getPaperBySubject };
+export { getSubjectsInfo, addPaperQuestions,getPaperBySubject,getQuestionIdsByPaperId };
