@@ -37,6 +37,8 @@ const addPaperQuestions = asyncHandler( async (req,res) => {
     selectedIds
   } = req.body.paperData;
 
+  console.log("paperSubject", paperSubject);  
+
   const paperId = await addPaper(paperName, paperSubject, paperExam);
   console.log("paperId from conteoller", paperId);
   const result = await passPaperQuestionsToModel(paperId, selectedIds);

@@ -7,12 +7,16 @@ import Navbar from "../components/Navbar";
 import Modal from "react-bootstrap/Modal";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+
 
 export default function GenPapersSelectedQuestions() {
   const [paperName, setPaperName] = useState();
   const [paperSubject, setPaperSubject] = useState();
   const [paperExam, setPaperExam] = useState();
   const navigate = useNavigate();
+const location = useLocation();
+
 
   // Create a reference to the PDF component
   const options = {
@@ -36,9 +40,16 @@ export default function GenPapersSelectedQuestions() {
   }, []);
 
 
-  
+  //store subject 
   const params = new URLSearchParams(window.location.search);
-  const subject = params.get("subject");
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const subject = params.get("subject");
+    setPaperSubject(subject);
+  }, [location.search]);
+
+  //get type from url
+  const type = params.get("type");
 
   // Fetch questions when component mounts
   useEffect(() => {
@@ -131,9 +142,12 @@ export default function GenPapersSelectedQuestions() {
                 type="text"
                 className="form-control"
                 id="paperTitle"
-                placeholder="Subject"
+                placeholder="Enter subject"
+                value={paperSubject}
                 onChange={(e) => setPaperSubject(e.target.value)}
+                disabled
               />
+
               <label htmlFor="paperTitle">Exam Name</label>
               <input
                 type="text"
@@ -198,12 +212,14 @@ export default function GenPapersSelectedQuestions() {
           onClick={() => toPDF()}
           value="Download PDF"
         />{" "}
-        <Button
-          style={{ backgroundColor: "#fac532" }}
-          onClick={() => setModalShow(true)}
-        >
-          Save Paper
-        </Button>
+        {type === "savedPaper" ? null : (
+          <Button
+            style={{ backgroundColor: "#fac532" }}
+            onClick={() => setModalShow(true)}
+          >
+            Save Paper
+          </Button>
+        )}
       </div>
     </div>
   );
