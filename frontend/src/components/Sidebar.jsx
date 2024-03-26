@@ -32,6 +32,12 @@ export default function Sidebar() {
               </span>
               Add Question
             </Link>
+            <Link to="/Papers">
+              <span className="iconSize">
+                <BsFillQuestionSquareFill size={25} />
+              </span>
+              Papers
+            </Link>
             <Link to="/QuestionBank">
               <span className="iconSize">
                 <BsBank size={25} />

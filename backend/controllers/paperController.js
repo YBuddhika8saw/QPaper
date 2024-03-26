@@ -36,9 +36,7 @@ const addPaperQuestions = asyncHandler( async (req,res) => {
   } = req.body.paperData;
 
   const paperId = await addPaper(paperName, paperSubject, paperExam);
-
   console.log("paperId from conteoller", paperId);
-
   const result = await passPaperQuestionsToModel(paperId, selectedIds);
 
 
@@ -58,6 +56,10 @@ const passPaperQuestionsToModel = async (paperId, selectedId) => {
   const result = await addPaperQuestionToModel(paperId, selectedId);
   return result;
 }
+
+
+// get Papers by subject
+ const getPaperBySubject = asyncHandler(async (req, res) => {
 
 
 export { getSubjectsInfo, addPaperQuestions };

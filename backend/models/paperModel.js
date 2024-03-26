@@ -66,6 +66,9 @@ const addPaperQuestions = async (paperId, questionIds) => {
     }
 };
 
+//get papers by subject
+
+
 
 
 

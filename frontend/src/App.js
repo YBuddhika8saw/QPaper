@@ -10,6 +10,8 @@ import GenaratedPaper from './pages/GenaratedPaper';
 import QuestionBank from './pages/QuestionBank';
 import SubjectQuestions from './pages/SubjectQuestions';
 import GenPapersSelectedQuestions from './pages/GenPapersSelectedQuestions';
+import DisplayPaper from './pages/DisplayPaper';
+import DisplayPaperComponent from './components/DisplayPaperComponent';
 
 
 
@@ -29,6 +31,8 @@ function App() {
         <Route path="/QuestionBank" element ={<QuestionBank />} />
         <Route path="/QuestionBank/Questions" element ={<SubjectQuestions />} />
         <Route path="/QuestionBank/GenaratedPaper" element ={<GenPapersSelectedQuestions />} />
+        <Route path="/Papers" element ={<DisplayPaper />} />
+        <Route path="/Papers/DisplayPaperComponent" element ={<DisplayPaperComponent />} />
       </Routes>
     
     </div>
