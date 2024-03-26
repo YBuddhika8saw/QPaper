@@ -1,4 +1,5 @@
 import asyncHandler from "express-async-handler";
+
 import { getSubjectsInfo as getSubjectsInfoFromModel } from "../models/paperModel.js";
 import { addPaper as addPaperToModel } from "../models/paperModel.js";
 import{addPaperQuestions as addPaperQuestionToModel} from "../models/paperModel.js";
@@ -15,13 +16,15 @@ const getSubjectsInfo = asyncHandler(async (req, res) => {
 
 
 //add Paper
-const addPaper = (paperName, paperSubject, paperExam) =>{
-  const paperId =  addPaperToModel(paperName, paperSubject, paperExam);
+const addPaper = async (paperName, paperSubject, paperExam) => {
+  const paperId = await addPaperToModel(paperName, paperSubject, paperExam);
   if (paperId) {
     return paperId;
-    }
-  } 
-  
+  } else {
+    return null; // or false, indicating failure
+  }
+}
+
 
 //add paper questions to paper_questions table
 const addPaperQuestions = asyncHandler( async (req,res) => {
@@ -32,27 +35,29 @@ const addPaperQuestions = asyncHandler( async (req,res) => {
     selectedIds
   } = req.body.paperData;
 
-  const paperId = await addPaper(paperName, paperSubject, paperExam);  
+  const paperId = await addPaper(paperName, paperSubject, paperExam);
+
+  console.log("paperId from conteoller", paperId);
+
   const result = await passPaperQuestionsToModel(paperId, selectedIds);
-  
+
+
   if (result) {
     res.status(200).json({
-      message: 'Paper added successfully'
-    })
+      message: "Paper questions added successfully"
+    });
   } else {
-    res.status(400).json({
-      message: 'Failed to add paper',
-    })
+    res.status(500).json({
+      message: "Failed to add paper questions"
+    });
   }
-
+ 
 });
 
 const passPaperQuestionsToModel = async (paperId, selectedId) => {
   const result = await addPaperQuestionToModel(paperId, selectedId);
   return result;
 }
-
-
 
 
 export { getSubjectsInfo, addPaperQuestions };

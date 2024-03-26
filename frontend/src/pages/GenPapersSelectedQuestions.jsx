@@ -35,6 +35,11 @@ export default function GenPapersSelectedQuestions() {
     return selectedIdsString ? selectedIdsString.split(",") : [];
   }, []);
 
+
+  
+  const params = new URLSearchParams(window.location.search);
+  const subject = params.get("subject");
+
   // Fetch questions when component mounts
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -139,7 +144,7 @@ export default function GenPapersSelectedQuestions() {
               />
               <br />
               <button type="submit" className="btn btn-primary">
-                Submit
+                Save
               </button>
             </div>
           </form>

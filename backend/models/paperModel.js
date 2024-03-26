@@ -27,7 +27,6 @@ const getSubjectsInfo = asyncHandler(async () => {
 // Add a paper to the database
 const addPaper = async (pName, pSubject, pExam) => {
     const subjectUpperCase = pSubject.toUpperCase();
-  
     const addPaperQuery = `
       INSERT INTO paper (paper_name, subject, exam_name)
       VALUES (?, ?, ?);`;
@@ -37,9 +36,8 @@ const addPaper = async (pName, pSubject, pExam) => {
         subjectUpperCase,
         pExam
       ]);
-  
-      const lastInsertIdResult = await query("SELECT LAST_INSERT_ID() AS paper_id");
-      const paperId = lastInsertIdResult[0].paper_id;
+      console.log("result from model", result.insertId);
+      const paperId = result.insertId;
   
       return paperId;
     } catch (error) {
@@ -50,23 +48,24 @@ const addPaper = async (pName, pSubject, pExam) => {
   
 //add paper questions to paper_questions table
 const addPaperQuestions = async (paperId, questionIds) => {
-    console.log("paperId", paperId);
-    console.log("questionIds", questionIds);
-
     const addPaperQuestionQuery = `
       INSERT INTO paper_questions (paper_id, question_id)
       VALUES (?, ?);`;
 
+      console.log("paperId from modal", paperId);
+
     try {
-        for (const questionId of questionIds) {
-            await query(addPaperQuestionQuery, [paperId, questionId]);
-        }
-        return true; // Return true after successfully inserting all records
+        const promises = questionIds.map(async(questionId) => {
+            return await query(addPaperQuestionQuery, [paperId, questionId]);
+        });
+        await Promise.all(promises);
+        return true;
     } catch (error) {
         console.error("Error executing database query:", error);
         throw new Error("Failed to add question to paper");
     }
 };
+
 
 
 
