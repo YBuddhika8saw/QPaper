@@ -148,7 +148,7 @@ export default function AddQuestions() {
           <form
             onSubmit={submitHandler}
             method="post"
-            enctype="multipart/form-data"
+            encType="multipart/form-data"
           >
             <MDBTextArea
               id="qText"

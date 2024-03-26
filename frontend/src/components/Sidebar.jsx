@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 export default function Sidebar() {
   return (
     <div>
-          <div class="sidebar">
+          <div className="sidebar">
             <Link to="/">
               <span className="iconSize">
                 <BsFillGridFill size={25} />

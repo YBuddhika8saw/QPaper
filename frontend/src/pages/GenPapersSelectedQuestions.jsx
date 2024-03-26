@@ -5,9 +5,15 @@ import { Button } from "react-bootstrap";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import Modal from "react-bootstrap/Modal";
-
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 export default function GenPapersSelectedQuestions() {
+  const [paperName, setPaperName] = useState();
+  const [paperSubject, setPaperSubject] = useState();
+  const [paperExam, setPaperExam] = useState();
+  const navigate = useNavigate();
+
   // Create a reference to the PDF component
   const options = {
     filename: "questionpaper.pdf",
@@ -50,10 +56,42 @@ export default function GenPapersSelectedQuestions() {
     fetchQuestions();
   }, [selectedIds]);
 
-  const selectId = async(selectedIds) => {
-    console.log('selectedIds');
-    console.log(selectedIds);
-  }
+  //Save paper from submit handler
+  const handleSubmitForPaper = async (e) => {
+    e.preventDefault();
+    const paperData = {
+      paperName,
+      paperSubject,
+      paperExam,
+      selectedIds,
+    };
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/api/paper/addPaper`,
+        { paperData }
+      );
+      console.log("Paper saved successfully:", response);
+      showSuccessMsg();
+      setModalShow(false);
+    } catch (error) {
+      console.error("Error saving paper:", error);
+    }
+  };
+
+  //show success msg after saving paper
+  const showSuccessMsg = () => {
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Paper has been saved",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    setPaperName("");
+    setPaperSubject("");
+    setPaperExam("");
+    navigate(`/`);
+  };
 
   return (
     <div>
@@ -69,16 +107,50 @@ export default function GenPapersSelectedQuestions() {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Modal heading
+            Add Paper Details
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Centered Modal</h4>
-          <p>
-                  {selectId(selectedIds)}  </p>
+          <form onSubmit={handleSubmitForPaper} method="post">
+            <div className="form-group">
+              <label htmlFor="paperTitle">Paper Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="paperTitle"
+                placeholder="Enter Paper Title"
+                onChange={(e) => setPaperName(e.target.value)}
+              />
+              <label htmlFor="paperTitle">Subject</label>
+              <input
+                type="text"
+                className="form-control"
+                id="paperTitle"
+                placeholder="Subject"
+                onChange={(e) => setPaperSubject(e.target.value)}
+              />
+              <label htmlFor="paperTitle">Exam Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="paperTitle"
+                placeholder="Exam Name"
+                onChange={(e) => setPaperExam(e.target.value)}
+              />
+              <br />
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
+            </div>
+          </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => setModalShow(false)}>Close</Button>
+          <Button
+            onClick={() => setModalShow(false)}
+            style={{ backgroundColor: "#f24f44" }}
+          >
+            Close
+          </Button>
         </Modal.Footer>
       </Modal>
 
