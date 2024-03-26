@@ -4,6 +4,8 @@ import { usePDF } from "react-to-pdf";
 import { Button } from "react-bootstrap";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+import Modal from "react-bootstrap/Modal";
+
 
 export default function GenPapersSelectedQuestions() {
   // Create a reference to the PDF component
@@ -14,6 +16,8 @@ export default function GenPapersSelectedQuestions() {
     format: "a4",
   };
   const { toPDF, targetRef } = usePDF(options);
+
+  const [modalShow, setModalShow] = React.useState(false);
 
   // State to hold questions
   const [questions, setQuestions] = useState([]);
@@ -46,10 +50,38 @@ export default function GenPapersSelectedQuestions() {
     fetchQuestions();
   }, [selectedIds]);
 
+  const selectId = async(selectedIds) => {
+    console.log('selectedIds');
+    console.log(selectedIds);
+  }
+
   return (
     <div>
       <Navbar />
       <Sidebar />
+
+      <Modal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Modal heading
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>Centered Modal</h4>
+          <p>
+                  {selectId(selectedIds)}  </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => setModalShow(false)}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+
       <div className="genarateQuestionMain">
         {/* create the PDF component  */}
         <div ref={targetRef}>
@@ -89,6 +121,12 @@ export default function GenPapersSelectedQuestions() {
           onClick={() => toPDF()}
           value="Download PDF"
         />{" "}
+        <Button
+          style={{ backgroundColor: "#fac532" }}
+          onClick={() => setModalShow(true)}
+        >
+          Save Paper
+        </Button>
       </div>
     </div>
   );
