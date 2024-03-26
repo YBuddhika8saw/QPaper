@@ -25,40 +25,50 @@ const getSubjectsInfo = asyncHandler(async () => {
 
 
 // Add a paper to the database
-const addPaper = asyncHandler(async (
-    pName,
-    pSubject,
-    pExam
-) => {
-    // Convert qSubject and qSubjectArea to uppercase
+const addPaper = async (pName, pSubject, pExam) => {
     const subjectUpperCase = pSubject.toUpperCase();
-    
+  
     const addPaperQuery = `
-    INSERT INTO paper (paper_name, subject, exam_name)
-    VALUES (?, ?, ?);`;
+      INSERT INTO paper (paper_name, subject, exam_name)
+      VALUES (?, ?, ?);`;
     try {
-        // Execute the INSERT query
-        const result = await query(addPaperQuery, [
-            pName,
-            subjectUpperCase,
-            pExam
-        ]);
-    
-        // After the INSERT, execute the SELECT LAST_INSERT_ID() query
-        const lastInsertIdResult = await query("SELECT LAST_INSERT_ID() AS paper_id");
-    
-        // Extract the paper_id from the result
-        const paperId = lastInsertIdResult[0].paper_id;
-    
-        // Return the paper_id
-        return paperId;
+      const result = await query(addPaperQuery, [
+        pName,
+        subjectUpperCase,
+        pExam
+      ]);
+  
+      const lastInsertIdResult = await query("SELECT LAST_INSERT_ID() AS paper_id");
+      const paperId = lastInsertIdResult[0].paper_id;
+  
+      return paperId;
+    } catch (error) {
+      console.error("Error executing database query:", error);
+      throw new Error("Failed to add paper to database");
+    }
+  };
+  
+//add paper questions to paper_questions table
+const addPaperQuestions = async (paperId, questionIds) => {
+    console.log("paperId", paperId);
+    console.log("questionIds", questionIds);
+
+    const addPaperQuestionQuery = `
+      INSERT INTO paper_questions (paper_id, question_id)
+      VALUES (?, ?);`;
+
+    try {
+        for (const questionId of questionIds) {
+            await query(addPaperQuestionQuery, [paperId, questionId]);
+        }
+        return true; // Return true after successfully inserting all records
     } catch (error) {
         console.error("Error executing database query:", error);
-        throw new Error("Failed to add question to database");
+        throw new Error("Failed to add question to paper");
     }
-    
-});
+};
 
 
 
-export { getSubjectsInfo,addPaper };
+
+export { getSubjectsInfo, addPaper, addPaperQuestions };

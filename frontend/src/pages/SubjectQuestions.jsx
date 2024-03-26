@@ -89,7 +89,7 @@ export default function SubjectQuestions() {
     navigate(
       `/QuestionBank/GenaratedPaper?selectedIds=${encodeURIComponent(
         selectedIds.join(",")
-      )}`
+      )} &subject=${encodeURIComponent(subject)}`
     );
   };
 
