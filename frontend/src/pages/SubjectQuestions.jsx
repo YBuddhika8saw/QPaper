@@ -7,27 +7,66 @@ import { useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import { FaTrash } from "react-icons/fa";
 import { FaPencilAlt } from "react-icons/fa";
+import Swal from "sweetalert2";
 
+
+// ViewQuestionDetailsModel component and delete question modal
 function ViewQuestionDetailsModel(props) {
   // Access the data prop
   const { data, onHide } = props;
-
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
-
   const handleShow = () => {
     setShow(true); // Open delete question modal
     onHide(); // Close view question details modal
   };
 
+  // handle delete question
+  const handleDelete = (qId) => {
+    try {
+      axios
+        .delete(`http://localhost:5000/api/question/deleteQuestion?qId=${qId}`)
+        .then((response) => {
+          if (response.data.result === true) {
+            console.log("Question deleted successfully");
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your question has been deleted.",
+              icon: "success",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          } else {
+            Swal.fire({
+              title: "Oops...",
+              text: "Question exists in paper. Cannot delete question.",
+              icon: "error",
+              showConfirmButton: false,
+              timer: 1750,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      handleClose();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // use the data prop modal
   return (
     <>
-      {" "}
+      {/* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
       {/* modal for delete question */}
-      <Modal show={show} onHide={handleClose} style={{ marginTop: "5px" }} aria-labelledby="contained-modal-title-vcenter"
-        centered>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        style={{ marginTop: "5px" }}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>Do you realy want to delete this Question</Modal.Body>
         <Modal.Footer>
@@ -36,13 +75,15 @@ function ViewQuestionDetailsModel(props) {
           </Button>
           <Button
             variant="primary"
-            onClick={handleClose}
+            onClick={() => handleDelete(data && data.question_id)}
             style={{ backgroundColor: "red" }}
           >
-            Delete
+            <FaTrash /> Delete
           </Button>
         </Modal.Footer>
       </Modal>
+
+      {/* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
       {/* modal for view question details  */}
       <Modal
         {...props}
@@ -83,14 +124,18 @@ function ViewQuestionDetailsModel(props) {
           <Button
             variant="primary"
             onClick={handleShow}
-            style={{ backgroundColor: "red", float: "right"}}
+            style={{ backgroundColor: "red", float: "right" }}
           >
             <FaTrash size={15} />
           </Button>
           <Button
             variant="primary"
             onClick={handleShow}
-            style={{ backgroundColor: "#f0d805", float: "right", marginRight: "10px"}}
+            style={{
+              backgroundColor: "#f0d805",
+              float: "right",
+              marginRight: "10px",
+            }}
           >
             <FaPencilAlt size={15} />
           </Button>
@@ -99,6 +144,8 @@ function ViewQuestionDetailsModel(props) {
     </>
   );
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default function SubjectQuestions() {
   const params = new URLSearchParams(window.location.search);
