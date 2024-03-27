@@ -5,62 +5,113 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
+import { FaTrash } from "react-icons/fa";
+import { FaPencilAlt } from "react-icons/fa";
 
 function ViewQuestionDetailsModel(props) {
   // Access the data prop
   const { data, onHide } = props;
 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+
+  const handleShow = () => {
+    setShow(true); // Open delete question modal
+    onHide(); // Close view question details modal
+  };
+
   // use the data prop modal
   return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          {data && data.question_text}
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <table>
-          <tr>
-            <td><b>Question Mark :</b></td>
-            <td style={{ verticalAlign: "middle" }}>{data && data.mark}</td>
-          </tr>
-          <tr>
-            <td><b>Difficulty Level :</b></td>
-            <td style={{ verticalAlign: "middle" }}>
-              {data && data.difficulty_level}
-            </td>
-          </tr>
-          <tr>
-            <td><b>Subject Area :</b></td>
-            <td style={{ verticalAlign: "middle" }}>
-              {data && data.subject_area}
-            </td>
-          </tr>
-        </table>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={onHide}>Close</Button>
-      </Modal.Footer>
-    </Modal>
+    <>
+      {" "}
+      {/* modal for delete question */}
+      <Modal show={show} onHide={handleClose} style={{ marginTop: "5px" }} aria-labelledby="contained-modal-title-vcenter"
+        centered>
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>Do you realy want to delete this Question</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            onClick={handleClose}
+            style={{ backgroundColor: "red" }}
+          >
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* modal for view question details  */}
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            {data && data.question_text}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <table>
+            <tr>
+              <td>
+                <b>Question Mark :</b>
+              </td>
+              <td style={{ verticalAlign: "middle" }}>{data && data.mark}</td>
+            </tr>
+            <tr>
+              <td>
+                <b>Difficulty Level :</b>
+              </td>
+              <td style={{ verticalAlign: "middle" }}>
+                {data && data.difficulty_level}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b>Subject Area :</b>
+              </td>
+              <td style={{ verticalAlign: "middle" }}>
+                {data && data.subject_area}
+              </td>
+            </tr>
+          </table>
+          <Button
+            variant="primary"
+            onClick={handleShow}
+            style={{ backgroundColor: "red", float: "right"}}
+          >
+            <FaTrash size={15} />
+          </Button>
+          <Button
+            variant="primary"
+            onClick={handleShow}
+            style={{ backgroundColor: "#f0d805", float: "right", marginRight: "10px"}}
+          >
+            <FaPencilAlt size={15} />
+          </Button>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={onHide}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 }
-
-
-
 
 export default function SubjectQuestions() {
   const params = new URLSearchParams(window.location.search);
   const subject = params.get("subject");
-  // const id = params.get("id");
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
   const [modalShow, setModalShow] = React.useState(false);
+
+  //delete modal
 
   useEffect(() => {
     axios
@@ -92,8 +143,6 @@ export default function SubjectQuestions() {
       )} &subject=${encodeURIComponent(subject)}`
     );
   };
-
-
 
   return (
     <div>

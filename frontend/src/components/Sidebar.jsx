@@ -5,6 +5,7 @@ import { GiNewspaper } from "react-icons/gi";
 import { BsBank } from "react-icons/bs";
 import { BsBank2 } from "react-icons/bs";
 import { MdOutlineIntegrationInstructions } from "react-icons/md";
+import { FaNewspaper } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 
@@ -34,7 +35,7 @@ export default function Sidebar() {
             </Link>
             <Link to="/Papers">
               <span className="iconSize">
-                <BsFillQuestionSquareFill size={25} />
+                <FaNewspaper size={25} />
               </span>
               Papers
             </Link>
