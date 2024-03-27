@@ -95,9 +95,6 @@ function ViewQuestionDetailsModel(props) {
             <FaPencilAlt size={15} />
           </Button>
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={onHide}>Close</Button>
-        </Modal.Footer>
       </Modal>
     </>
   );
