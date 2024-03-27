@@ -138,10 +138,10 @@ const getSubjectList = asyncHandler(async (req, res) => {
   //delete question
   const deleteQuestion = asyncHandler(async (req, res) => {
     const qId = req.query.qId;
-    const questions = await deleteQuestionFromModel(qId)
-    if (questions) {
+    const result = await deleteQuestionFromModel(qId)
+    if (result) {
       res.status(200).json({
-        questions
+        result
       })
     } else {
       res.status(400).json({
