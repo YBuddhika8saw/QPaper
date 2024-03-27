@@ -117,5 +117,17 @@ const getTotalPaperCount = asyncHandler(async () => {
     }
 });
 
+//function to delete question using question id
+const deleteQuestion = asyncHandler(async (questionId) => {
+    const deleteQuestionQuery = `DELETE FROM questions WHERE question_id = ?`;
+    try {
+        const result = await query(deleteQuestionQuery, [questionId]);
+        return true;
+    } catch (error) {
+        console.error("Error executing database query:", error);
+        throw new Error("Failed to delete question from database");
+    }
+});
 
-export { addQuestion, getSubjects,getQuestions,getQuestionById,getTotalQuestionCount,getTotalDistinctSubjectsCount,getTotalPaperCount};
+
+export { addQuestion, getSubjects,getQuestions,getQuestionById,getTotalQuestionCount,getTotalDistinctSubjectsCount,getTotalPaperCount,deleteQuestion};

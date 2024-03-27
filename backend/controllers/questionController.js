@@ -6,9 +6,10 @@ import {getQuestionById as getQuestionByIdFromModel} from "../models/questionMod
 import{getTotalQuestionCount as getTotalQuestionCountFromModel} from "../models/questionModel.js";
 import{getTotalDistinctSubjectsCount as getTotalDistinctSubjectsCountFromModel} from "../models/questionModel.js";
 import{getTotalPaperCount as getTotalPaperCountFromModel} from "../models/questionModel.js";
+import{deleteQuestion as deleteQuestionFromModel} from "../models/questionModel.js";
 import path from 'path';
 
-
+//add question
 const addQuestion = asyncHandler(async (req, res) => {
     // Check if req.body exists before destructure
     if (!req.body) {
@@ -133,4 +134,19 @@ const getSubjectList = asyncHandler(async (req, res) => {
       })
   });
 
-export { addQuestion,addImg,getSubjectList,getQuestions,getQuestionsById,getCountTotalQuestions,getTotalSubjectsCount,getTotalPaperCount};
+
+  //delete question
+  const deleteQuestion = asyncHandler(async (req, res) => {
+    const qId = req.query.qId;
+    const questions = await deleteQuestionFromModel(qId)
+    if (questions) {
+      res.status(200).json({
+        questions
+      })
+    } else {
+      res.status(400).json({
+        message: 'Invalid verification token or token expired',
+      })
+    }
+  });
+export { addQuestion,addImg,getSubjectList,getQuestions,getQuestionsById,getCountTotalQuestions,getTotalSubjectsCount,getTotalPaperCount,deleteQuestion};
