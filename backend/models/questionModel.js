@@ -117,5 +117,41 @@ const getTotalPaperCount = asyncHandler(async () => {
     }
 });
 
+//function to delete question using question id
+const deleteQuestion = asyncHandler(async (questionId) => {
+    const deleteQuestionQuery = `DELETE FROM questions WHERE question_id = ?`;
 
-export { addQuestion, getSubjects,getQuestions,getQuestionById,getTotalQuestionCount,getTotalDistinctSubjectsCount,getTotalPaperCount};
+    // Check if the question exists in the paper_questions table
+    const questionExistsInPaperQuestions = await checkQuestionExistInPaperQuestions(questionId);
+    try {
+        if (questionExistsInPaperQuestions.length > 0) {
+            return "Question exists in paper. Cannot delete question";
+        }else{
+        const result = await query(deleteQuestionQuery, [questionId]);
+        if (result.affectedRows === 0) {
+            return false;
+        } else {
+        return true;
+        }
+    }
+    } catch (error) {
+        console.error("Error executing database query:", error);
+        throw new Error("Failed to delete question from database");
+    }
+});
+
+
+//Function to cheak question id is exist in paper_questions table
+const checkQuestionExistInPaperQuestions = asyncHandler(async (questionId) => {
+    const checkQuestionExistInPaperQuestionsQuery = `SELECT * FROM paper_questions WHERE question_id = ?`;
+    try {
+        const result = await query(checkQuestionExistInPaperQuestionsQuery, [questionId]);
+        return result;
+    } catch (error) {
+        console.error("Error executing database query:", error);
+        throw new Error("Failed to check question exist in paper_questions table");
+    }
+});
+
+
+export { addQuestion, getSubjects,getQuestions,getQuestionById,getTotalQuestionCount,getTotalDistinctSubjectsCount,getTotalPaperCount,deleteQuestion};
