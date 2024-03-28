@@ -153,6 +153,7 @@ const deleteQuestion = asyncHandler(async (req, res) => {
 
 //edite question
 const editQuestion = asyncHandler(async (req, res) => {
+  
   const {
     qText,
     qTime,
@@ -164,9 +165,9 @@ const editQuestion = asyncHandler(async (req, res) => {
     qMarks,
     qId
   } = req.body.formData;
- 
 
   const result = await editQuestionFromModel(
+    qId,
     qText,
     qTime,
     qType,
@@ -174,9 +175,9 @@ const editQuestion = asyncHandler(async (req, res) => {
     qSubjectArea,
     qDifficulty,
     qSpace,
-    qMarks,
-    qId
+    qMarks
   )
+
   if (result) {
     res.status(200).json({
       result

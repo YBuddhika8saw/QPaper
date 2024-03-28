@@ -5,6 +5,7 @@ import {Routes,Route} from 'react-router-dom';
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard';
 import AddQuestions from './pages/AddQuestions';
+import EditeQuestion from './pages/EditeQuestion';
 import CreatePaper from './pages/CreatePaper';
 import GenaratedPaper from './pages/GenaratedPaper';
 import QuestionBank from './pages/QuestionBank';
@@ -33,8 +34,8 @@ function App() {
         <Route path="/QuestionBank/GenaratedPaper" element ={<GenPapersSelectedQuestions />} />
         <Route path="/Papers" element ={<DisplayPaper />} />
         <Route path="/Papers/DisplayPaperComponent" element ={<DisplayPaperComponent />} />
+        <Route path="/EditeQuestion" element ={<EditeQuestion />} />
       </Routes>
-    
     </div>
   );
 }

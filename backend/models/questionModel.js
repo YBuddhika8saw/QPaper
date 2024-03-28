@@ -177,13 +177,14 @@ const editQuestion = asyncHandler(async (questionId, qText, qTime, qType, qSubje
             subjectAreaUpperCase, // Use the uppercase version
             qSpace,
             qMarks,
-            qImage,
             questionId
         ])
-        if (result.affectedRows === 0) {
-            return false;
-        } else {
+
+
+        if (result) {
             return true;
+        } else {
+            return false;
         }
     } catch (error) {
         console.error("Error executing database query:", error);
