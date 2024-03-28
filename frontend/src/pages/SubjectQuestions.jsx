@@ -235,9 +235,11 @@ export default function SubjectQuestions() {
             );
           })}
         </table>
+        {selectedIds.length > 0 && (
         <Button type="Submit" onClick={sendIds}>
           Create Paper
         </Button>
+      )}
       </div>
     </div>
   );
