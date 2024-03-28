@@ -1,7 +1,10 @@
 import express from "express";
 import upload from '../middleware/uploader.js';
 const router = express.Router();
-import { addQuestion,addImg,getSubjectList,getQuestions,getQuestionsById,getCountTotalQuestions,getTotalSubjectsCount,getTotalPaperCount,deleteQuestion} from "../controllers/questionController.js";
+import {
+    addQuestion, addImg, getSubjectList, getQuestions, getQuestionsById, getCountTotalQuestions,
+    getTotalSubjectsCount, getTotalPaperCount, deleteQuestion, editQuestion
+} from "../controllers/questionController.js";
 
 
 // Route to handle adding a question
@@ -31,6 +34,8 @@ router.get('/getTotalPapers', getTotalPaperCount);
 //Route to delete question in database
 router.delete('/deleteQuestion', deleteQuestion);
 
+//Route to edite question in database
+router.put('/editQuestion', editQuestion);
 
 
 export default router;

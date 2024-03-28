@@ -157,5 +157,38 @@ const checkQuestionExistInPaperQuestions = asyncHandler(async (questionId) => {
     }
 });
 
+//Function to edit question using question id
+const editQuestion = asyncHandler(async (questionId, qText, qTime, qType, qSubject, qSubjectArea, qDifficulty, qSpace, qMarks) => {
+    // Convert qSubject and qSubjectArea to uppercase
+    const subjectUpperCase = qSubject.toUpperCase();
+    const subjectAreaUpperCase = qSubjectArea.toUpperCase();
 
-export { addQuestion, getSubjects, getQuestions, getQuestionById, getTotalQuestionCount, getTotalDistinctSubjectsCount, getTotalPaperCount, deleteQuestion };
+    const editQuestionQuery = `
+        UPDATE questions
+        SET question_text = ?, expected_time = ?, question_type = ?, subject = ?, difficulty_level = ?, subject_area = ?, space_allocated = ?, mark = ?
+        WHERE question_id = ?`;
+    try {
+        const result = await query(editQuestionQuery, [
+            qText,
+            qTime,
+            qType,
+            subjectUpperCase, // Use the uppercase version
+            qDifficulty,
+            subjectAreaUpperCase, // Use the uppercase version
+            qSpace,
+            qMarks,
+            qImage,
+            questionId
+        ])
+        if (result.affectedRows === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    } catch (error) {
+        console.error("Error executing database query:", error);
+        throw new Error("Failed to edit question in database");
+    }
+});
+
+export { addQuestion, getSubjects, getQuestions, getQuestionById, getTotalQuestionCount, getTotalDistinctSubjectsCount, getTotalPaperCount, deleteQuestion,editQuestion };
