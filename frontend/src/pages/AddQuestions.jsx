@@ -157,6 +157,7 @@ export default function AddQuestions() {
               label="Question Text"
               value={qText}
               onChange={(e) => setQText(e.target.value)}
+              required
             />
 
             <MDBFile
@@ -166,6 +167,7 @@ export default function AddQuestions() {
               name="qImage"
               onChange={handleQImageChange}
               ref={fileInputRef}
+
             />
 
             <br />
@@ -178,6 +180,7 @@ export default function AddQuestions() {
               pattern="[0-9]*"
               value={qTime}
               onChange={(e) => setqTime(e.target.value)}
+              required
             />
 
             <MDBInput
@@ -188,6 +191,7 @@ export default function AddQuestions() {
               pattern="[0-9]*"
               value={qMarks}
               onChange={(e) => setqMarks(e.target.value)}
+              required
             />
 
             <MDBInput
@@ -198,6 +202,7 @@ export default function AddQuestions() {
               pattern="[0-9]*"
               value={qSpace}
               onChange={(e) => setqSpace(e.target.value)}
+              required
             />
 
             <MDBRange
@@ -209,6 +214,7 @@ export default function AddQuestions() {
               label="Question Difficulty"
               value={qDifficulty}
               onChange={(e) => setqDifficulty(e.target.value)}
+              required
             />
             <MDBInput
               wrapperClass="mb-4"
@@ -216,6 +222,7 @@ export default function AddQuestions() {
               label="Question Type"
               value={qType}
               onChange={(e) => setqType(e.target.value)}
+              required
             />
 
             <MDBInput
@@ -224,6 +231,7 @@ export default function AddQuestions() {
               label="Subject"
               value={qSubject}
               onChange={(e) => setqSubject(e.target.value)}
+              required
             />
 
             <MDBInput
@@ -232,6 +240,7 @@ export default function AddQuestions() {
               label="Subject Area"
               value={qSubjectArea}
               onChange={(e) => setqSubjectArea(e.target.value)}
+              required
             />
 
             <MDBBtn type="submit" block>

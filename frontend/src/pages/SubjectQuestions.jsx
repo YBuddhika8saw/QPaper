@@ -9,16 +9,22 @@ import { FaTrash } from "react-icons/fa";
 import { FaPencilAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 
-
 // ViewQuestionDetailsModel component and delete question modal
 function ViewQuestionDetailsModel(props) {
   // Access the data prop
   const { data, onHide } = props;
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
+  const navigate = useNavigate();
   const handleShow = () => {
     setShow(true); // Open delete question modal
     onHide(); // Close view question details modal
+  };
+
+
+  const handleEdite = () => {
+    onHide(); // Close view question details modal
+    navigate(`/EditeQuestion?qId=${data && data.question_id}`);
   };
 
   // handle delete question
@@ -130,7 +136,7 @@ function ViewQuestionDetailsModel(props) {
           </Button>
           <Button
             variant="primary"
-            onClick={handleShow}
+            onClick={handleEdite}
             style={{
               backgroundColor: "#f0d805",
               float: "right",
@@ -235,9 +241,11 @@ export default function SubjectQuestions() {
             );
           })}
         </table>
+        {selectedIds.length > 0 && (
         <Button type="Submit" onClick={sendIds}>
           Create Paper
         </Button>
+      )}
       </div>
     </div>
   );
