@@ -4,6 +4,8 @@ import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function EditeQuestion() {
   const [qText, setQText] = useState("");
@@ -14,53 +16,11 @@ export default function EditeQuestion() {
   const [qDifficulty, setqDifficulty] = useState(1);
   const [qSpace, setqSpace] = useState("");
   const [qMarks, setqMarks] = useState("");
-  const [qId, setqId] = useState("");
+  const navigate = useNavigate();
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    const formData = {
-      qText,
-      qTime,
-      qType,
-      qSubject,
-      qSubjectArea,
-      qDifficulty,
-      qSpace,
-      qMarks,
-      qId,
-    };
-
-    try {
-      const response = await axios.put(
-        `http://localhost:5000/api/question/editQuestion`,
-        { formData }
-      );
-
-      // Check if the request was successful
-      if (response) {
-        // Display success message
-        Swal.fire("Question successfully edited");
-        // Reset form fields
-        resetForm();
-      } else {
-        // Display error message
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Failed to add question",
-        });
-      }
-    } catch (error) {
-      // Handle error
-      console.error("Error:", error);
-      // Display error message
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "An error occurred while adding the question",
-      });
-    }
-  };
+  //get qId from url
+  const params = new URLSearchParams(window.location.search);
+  const qId = params.get("qId");
 
   const resetForm = () => {
     setQText("");
@@ -71,7 +31,6 @@ export default function EditeQuestion() {
     setqDifficulty(1);
     setqSpace("");
     setqMarks("");
-    setqId("");
   };
 
   const isFormValid = () => {
@@ -86,6 +45,81 @@ export default function EditeQuestion() {
       qId
     );
   };
+
+//   get question details using qId
+    useEffect(() => {
+        const getQuestion = async () => {
+          try {
+            const response = await axios.get(
+              `http://localhost:5000/api/question/getQuestionsById?qId=${qId}`
+            );
+            
+            const result = response.data.questions[0];
+            console.log(result);
+            setQText(result.question_text);
+            setqTime(result.expected_time);
+            setqType(result.question_type);
+            setqSubject(result.subject);
+            setqSubjectArea(result.subject_area);
+            setqDifficulty(result.difficulty_level);
+            setqSpace(result.space_allocated);
+            setqMarks(result.mark);
+          } catch (error) {
+            console.error("Error:", error);
+          }
+        };
+        getQuestion();
+      }, [qId]);
+
+
+      const submitHandler = async (e) => {
+        e.preventDefault();
+        const formData = {
+          qText,
+          qTime,
+          qType,
+          qSubject,
+          qSubjectArea,
+          qDifficulty,
+          qSpace,
+          qMarks,
+          qId,
+        };
+        console.log(formData);
+    
+        try {
+          const response = await axios.put(
+            `http://localhost:5000/api/question/editQuestion`,
+            { formData }
+          );
+    
+          // Check if the request was successful
+          if (response) {
+            // Display success message
+            Swal.fire("Question successfully edited");
+            // Reset form fields
+            resetForm();
+            navigate(`/QuestionBank/Questions?subject=${qSubject}`);
+          } else {
+            // Display error message
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Failed to add question",
+            });
+          }
+        } catch (error) {
+          // Handle error
+          console.error("Error:", error);
+          // Display error message
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "An error occurred while adding the question",
+          });
+        }
+      };
+
 
   return (
     <>
@@ -120,17 +154,6 @@ export default function EditeQuestion() {
               pattern="[0-9]*"
               value={qTime}
               onChange={(e) => setqTime(e.target.value)}
-              required
-            />
-
-            <MDBInput
-              wrapperClass="mb-4"
-              id="qId"
-              label="Question Id"
-              type="number"
-              pattern="[0-9]*"
-              value={qId}
-              onChange={(e) => setqId(e.target.value)}
               required
             />
 
@@ -196,7 +219,7 @@ export default function EditeQuestion() {
 
             {isFormValid() && (
               <MDBBtn type="submit" block>
-                Add to Bank
+                Edit
               </MDBBtn>
             )}
           </form>
